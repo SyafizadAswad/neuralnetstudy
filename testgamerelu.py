@@ -25,9 +25,12 @@ BLUE = (0, 0, 255)
 
 # Set up the display
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
-pygame.display.set_caption('Flappy Bird with Neural Network')
+pygame.display.set_caption('Flappy Bird with Neural Network using ReLU')
 clock = pygame.time.Clock()
 font = pygame.font.SysFont('Arial', 20)
+
+def relu(x):
+    return np.maximum(0, x)
 
 class Bird:
     def __init__(self, brain=None):
@@ -68,9 +71,9 @@ class Bird:
             
             inputs = np.array([input1, input2, input3])
             
-            # Forward propagation with sigmoid activation
-            hidden = np.tanh(np.dot(inputs, self.input_weights))
-            output = np.tanh(np.dot(hidden, self.hidden_weights))
+            # Forward propagation with ReLU activation
+            hidden = relu(np.dot(inputs, self.input_weights))
+            output = np.tanh(np.dot(hidden, self.hidden_weights)) #output still tanh
             
             # Flap if output > 0.5 (more conservative threshold)
             if output > 0.5:
