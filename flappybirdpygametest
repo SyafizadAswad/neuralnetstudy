@@ -1,0 +1,21 @@
+Flappy bird game test (shallow network)
+
+Test param
+- activation function (non-linear)
+	1) Sigmoid (tanh)
+	2) ReLU
+	3) Parametric ReLU
+
+sigmoid flappy bird around 15 generations - highest fit - 30k best
+ReLU flappy bird around 15 gen
+highest fit - 2k best
+
+
+in theory, which network of the activation function has better output? In terms of number of generations and max fitness?
+
+- interesting enough that sigmoid(tanh) has better and stable learning environment
+- Take into factor of dying ReLU (since always getting negative input)
+
+Conclusion:
+ReLU - advantages in deep network
+tanh - more stable in shallow flappy bird network
