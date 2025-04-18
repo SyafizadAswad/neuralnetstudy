@@ -254,7 +254,7 @@ def main():
             best_fitness = 0
 
         best_fitness = max(best_fitness, max_fitness)
-        info_text = f"Generation: {generation} | Alive: {alive_count}/{len(birds)} | Max Fitness: {max_fitness} | Best:{best_fitness} ayase"
+        info_text = f"Generation: {generation} | Alive: {alive_count}/{len(birds)} | Max Fitness: {max_fitness} | Best:{best_fitness} tanh activation function"
         text_surface = font.render(info_text, True, WHITE)
         screen.blit(text_surface, (10, 10))
         
