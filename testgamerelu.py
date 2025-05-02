@@ -2,6 +2,8 @@ import pygame
 import random
 import math
 import numpy as np
+import time
+import csv
 from pygame.locals import *
 
 # Initialize pygame
@@ -188,6 +190,11 @@ def main():
     last_pipe = pygame.time.get_ticks()
     generation = 1
     
+    # Logging setup
+    start_time = time.time()
+    last_logged_time = start_time
+    csv_data = [("Timestamp", "Generation", "Max Fitness", "Best Fitness")]
+
     # Make first bird flap immediately
     for bird in birds:
         bird.flap()
@@ -255,15 +262,23 @@ def main():
         max_fitness = max(bird.fitness for bird in birds) if birds else 0
         if 'best_fitness' not in locals():
             best_fitness = 0
-
         best_fitness = max(best_fitness, max_fitness)
         info_text = f"Generation: {generation} | Alive: {alive_count}/{len(birds)} | Max Fitness: {max_fitness} | Best:{best_fitness}"
         text_surface = font.render(info_text, True, WHITE)
         screen.blit(text_surface, (10, 10))
-        
         pygame.display.update()
         clock.tick(60)
+
+        current_real_time = time.time()
+        if current_real_time - last_logged_time >= 60:
+            timestamp = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(current_real_time))
+            csv_data.append((timestamp, generation, max_fitness, best_fitness))
+            last_logged_time = current_real_time
     
+    with open("flappy_nn_relu_log.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(csv_data)
+
     pygame.quit()
 
 if __name__ == "__main__":
